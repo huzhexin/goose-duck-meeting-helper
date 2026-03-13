@@ -1,0 +1,165 @@
+/* ===== 悬浮主面板 ===== */
+.floating-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 16px;
+  width: 300px;
+  max-height: 520px;
+  background: rgba(12, 12, 18, 0.90);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* 最小化状态 */
+.floating-panel.minimized .panel-body {
+  display: none;
+}
+.floating-panel.minimized {
+  max-height: 44px;
+}
+
+/* 标题栏 */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: move;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.round-badge {
+  background: rgba(100, 181, 246, 0.2);
+  color: #64B5F6;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 11px;
+}
+
+/* 语音状态栏 */
+.voice-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.03);
+  font-size: 12px;
+  color: #888;
+}
+
+.voice-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+  flex-shrink: 0;
+}
+.voice-dot.active {
+  background: #64B5F6;
+  animation: pulse 1.2s infinite;
+}
+.voice-dot.listening {
+  background: #4CAF50;
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* 实时识别文字 */
+.live-text {
+  padding: 6px 14px;
+  font-size: 12px;
+  color: #64B5F6;
+  background: rgba(100, 181, 246, 0.06);
+  border-left: 2px solid #64B5F6;
+  margin: 0 10px 6px;
+  border-radius: 0 4px 4px 0;
+  min-height: 28px;
+}
+
+/* 玩家列表 */
+.player-list {
+  overflow-y: auto;
+  max-height: 300px;
+  padding: 4px 0;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.player-item:active {
+  background: rgba(255,255,255,0.08);
+}
+
+.player-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.player-tag-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.player-name {
+  flex: 1;
+  font-size: 13px;
+}
+
+.player-last-speech {
+  font-size: 11px;
+  color: #666;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 底部操作栏 */
+.panel-footer {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-btn {
+  flex: 1;
+  background: rgba(255,255,255,0.07);
+  border: none;
+  color: #ccc;
+  border-radius: 8px;
+  padding: 7px 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.footer-btn:active {
+  background: rgba(255,255,255,0.15);
+}

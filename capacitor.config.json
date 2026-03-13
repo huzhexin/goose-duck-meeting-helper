@@ -1,0 +1,14 @@
+{
+  "appId": "com.goosequack.helper",
+  "appName": "鹅鸭杀助手",
+  "webDir": "src",
+  "android": {
+    "allowMixedContent": true,
+    "backgroundColor": "#00000000"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": true
+    }
+  }
+}

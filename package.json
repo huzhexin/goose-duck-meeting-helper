@@ -1,0 +1,22 @@
+{
+  "name": "goose-duck-meeting-helper",
+  "version": "1.0.0",
+  "description": "Android版鹅鸭杀会议记录助手 - Meeting helper for Goose Goose Duck game",
+  "main": "src/index.html",
+  "scripts": {
+    "sync": "npx cap sync android",
+    "open": "npx cap open android",
+    "build": "npx cap copy && npx cap sync"
+  },
+  "keywords": ["goose-duck", "meeting-helper", "android", "capacitor"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^5.5.1",
+    "@capacitor/core": "^5.5.1",
+    "@capacitor/filesystem": "^5.1.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.5.1"
+  }
+}

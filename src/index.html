@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,
+                 user-scalable=no">
+  <title>鹅鸭杀助手</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/floating.css">
+  <link rel="stylesheet" href="css/meeting.css">
+</head>
+<body>
+
+  <!-- 悬浮主面板 -->
+  <div id="floating-panel" class="floating-panel">
+
+    <!-- 标题栏 -->
+    <div class="panel-header" id="drag-handle">
+      <span>🦆 记录助手</span>
+      <div class="header-right">
+        <span id="round-badge" class="round-badge">第1轮</span>
+        <button id="btn-minimize" class="icon-btn">─</button>
+      </div>
+    </div>
+
+    <!-- 面板内容 -->
+    <div class="panel-body" id="panel-body">
+
+      <!-- 语音状态栏 -->
+      <div class="voice-bar" id="voice-bar">
+        <span class="voice-dot" id="voice-dot"></span>
+        <span id="voice-status">等待会议开始...</span>
+      </div>
+
+      <!-- 实时识别文字 -->
+      <div class="live-text" id="live-text" style="display:none">
+        <span id="live-text-content"></span>
+      </div>
+
+      <!-- 玩家列表 -->
+      <div class="player-list" id="player-list">
+        <!-- 由JS动态生成 -->
+      </div>
+
+      <!-- 底部操作栏 -->
+      <div class="panel-footer">
+        <button class="footer-btn" id="btn-add-player">
+          + 添加玩家
+        </button>
+        <button class="footer-btn" id="btn-new-round">
+          🔄 新一轮
+        </button>
+        <button class="footer-btn" id="btn-review">
+          📊 复盘
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 会议弹窗（会议开始时显示） -->
+  <div id="meeting-modal" class="meeting-modal hidden">
+    <div class="meeting-modal-inner">
+
+      <div class="meeting-header">
+        <span class="meeting-icon">🔔</span>
+        <span id="meeting-title">会议开始！第1轮</span>
+        <button id="btn-close-meeting" class="icon-btn">×</button>
+      </div>
+
+      <!-- 实时发言记录 -->
+      <div class="speech-list" id="speech-list">
+        <div class="speech-empty">等待发言...</div>
+      </div>
+
+      <!-- 快速标记区 -->
+      <div class="quick-tag-area">
+        <div class="quick-tag-label">快速标记：</div>
+        <div class="quick-tag-players" id="quick-tag-players">
+          <!-- 由JS动态生成 -->
+        </div>
+      </div>
+
+      <!-- 会议结束按钮 -->
+      <button class="end-meeting-btn" id="btn-end-meeting">
+        结束会议 / 开始投票
+      </button>
+
+    </div>
+  </div>
+
+  <!-- 玩家详情弹窗 -->
+  <div id="player-modal" class="player-modal hidden">
+    <div class="player-modal-inner">
+      <div class="modal-header">
+        <span id="modal-player-name">玩家1</span>
+        <button id="btn-close-player-modal" class="icon-btn">×</button>
+      </div>
+
+      <!-- 标签选择 -->
+      <div class="tag-section">
+        <div class="section-label">设置标签：</div>
+        <div class="tag-options" id="tag-options">
+          <!-- 由JS生成 -->
+        </div>
+      </div>
+
+      <!-- 历史发言 -->
+      <div class="speech-history">
+        <div class="section-label">历史发言：</div>
+        <div id="player-speech-history"></div>
+      </div>
+
+      <!-- 手动添加笔记 -->
+      <div class="note-section">
+        <textarea
+          id="note-input"
+          placeholder="添加备注..."
+          rows="3">
+        </textarea>
+        <button id="btn-save-note" class="save-btn">保存备注</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 复盘页面 -->
+  <div id="review-panel" class="review-panel hidden">
+    <div class="review-header">
+      <button id="btn-back" class="icon-btn">←</button>
+      <span>📊 本局复盘</span>
+    </div>
+    <div id="review-content"></div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/detector.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

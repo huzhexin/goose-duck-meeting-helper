@@ -1,0 +1,266 @@
+/* ===== 会议弹窗 ===== */
+.meeting-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 12px 12px;
+}
+
+.meeting-modal.hidden { display: none; }
+
+.meeting-modal-inner {
+  width: 100%;
+  background: rgba(15, 15, 22, 0.96);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: 16px;
+  max-height: 70vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.meeting-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.meeting-icon {
+  font-size: 20px;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%,100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-15deg); }
+  75%      { transform: rotate(15deg); }
+}
+
+/* 发言记录列表 */
+.speech-list {
+  min-height: 100px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.speech-empty {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
+
+.speech-item {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.speech-player-name {
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  min-width: 50px;
+}
+
+.speech-text {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.speech-time {
+  font-size: 10px;
+  color: #555;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+/* 快速标记 */
+.quick-tag-area {
+  margin-top: 14px;
+}
+
+.quick-tag-label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.quick-tag-players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-tag-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  min-width: 56px;
+  transition: all 0.15s;
+}
+
+.quick-tag-btn:active {
+  transform: scale(0.95);
+}
+
+.quick-tag-btn .tag-icon { font-size: 16px; }
+.quick-tag-btn .tag-name { font-size: 11px; color: #aaa; }
+
+/* 结束会议按钮 */
+.end-meeting-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  background: rgba(244, 67, 54, 0.2);
+  border: 1px solid rgba(244, 67, 54, 0.4);
+  color: #EF9A9A;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ===== 玩家详情弹窗 ===== */
+.player-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.player-modal.hidden { display: none; }
+
+.player-modal-inner {
+  width: 100%;
+  max-width: 360px;
+  background: rgba(18, 18, 26, 0.98);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 18px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.tag-section, .speech-history, .note-section {
+  margin-bottom: 16px;
+}
+
+.section-label {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.tag-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.tag-option-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: #ccc;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.tag-option-btn.selected {
+  border-color: currentColor;
+  background: rgba(255,255,255,0.08);
+}
+
+/* 笔记输入 */
+.note-section textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px;
+  color: #ddd;
+  padding: 10px;
+  font-size: 13px;
+  resize: none;
+  margin-top: 8px;
+  font-family: inherit;
+}
+
+.save-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  background: rgba(100, 181, 246, 0.2);
+  border: 1px solid rgba(100, 181, 246, 0.4);
+  color: #90CAF9;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ===== 复盘页面 ===== */
+.review-panel {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 12, 18, 0.95);
+  z-index: 10002;
+  overflow-y: auto;
+}
+
+.review-panel.hidden { display: none; }
+
+.review-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(15, 15, 22, 0.98);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 1;
+}
+
+#review-content {
+  padding-bottom: 40px;
+}

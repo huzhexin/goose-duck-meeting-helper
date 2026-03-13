@@ -1,0 +1,45 @@
+/* ===== 全局重置 ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: transparent;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+  color: #E0E0E0;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ===== 通用按钮 ===== */
+.icon-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.icon-btn:active { background: rgba(255,255,255,0.1); }
+
+/* ===== 标签颜色 ===== */
+.tag-unknown    { color: #888888; }
+.tag-trust      { color: #4CAF50; }
+.tag-suspicious { color: #FF9800; }
+.tag-duck       { color: #F44336; }
+.tag-dead       { color: #555555; }
+
+.status-dead .player-name {
+  text-decoration: line-through;
+  color: #555;
+}
+
+/* ===== 隐藏工具类 ===== */
+.hidden {
+  display: none !important;
+}
