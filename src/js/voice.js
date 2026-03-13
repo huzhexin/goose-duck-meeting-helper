@@ -11,20 +11,26 @@ const Voice = {
   async init() {
     try {
       // 检查是否在Capacitor环境
-      if (typeof window.VoskPlugin !== 'undefined') {
+      if (typeof Capacitor !== 'undefined' && Capacitor.isNativePlatform()) {
+        const { VoskPlugin } = Capacitor.Plugins;
+        this.voskPlugin = VoskPlugin;
+
         // 初始化Vosk模型（首次加载较慢，约3-5秒）
-        await VoskPlugin.initModel();
-        console.log('语音模型加载成功');
+        UI.setVoiceStatus('processing');
+        const result = await this.voskPlugin.initModel();
+        console.log('语音模型加载成功:', result);
 
         // 监听识别结果
-        VoskPlugin.addListener('onResult', (data) => {
+        await this.voskPlugin.addListener('onResult', (data) => {
           this.handleResult(data);
         });
 
-        VoskPlugin.addListener('onError', (data) => {
+        await this.voskPlugin.addListener('onError', (data) => {
           console.error('识别错误:', data.error);
           UI.setVoiceStatus('error');
         });
+
+        UI.setVoiceStatus('idle');
       } else {
         console.log('浏览器环境：语音识别功能将在Android设备上可用');
         // 浏览器环境下的模拟功能
@@ -33,6 +39,7 @@ const Voice = {
 
     } catch(e) {
       console.error('语音识别初始化失败:', e);
+      UI.setVoiceStatus('error');
     }
   },
 
@@ -45,14 +52,15 @@ const Voice = {
   async start() {
     if (this.isListening) return;
     try {
-      if (typeof window.VoskPlugin !== 'undefined') {
-        await VoskPlugin.startListening();
+      if (this.voskPlugin) {
+        await this.voskPlugin.startListening();
       } else {
         console.log('演示模式：开始监听');
       }
       this.isListening = true;
       UI.setVoiceStatus('listening');
     } catch(e) {
+      console.error('启动监听失败:', e);
       UI.setVoiceStatus('error');
     }
   },
@@ -60,13 +68,17 @@ const Voice = {
   // 停止监听
   async stop() {
     if (!this.isListening) return;
-    if (typeof window.VoskPlugin !== 'undefined') {
-      await VoskPlugin.stopListening();
-    } else {
-      console.log('演示模式：停止监听');
+    try {
+      if (this.voskPlugin) {
+        await this.voskPlugin.stopListening();
+      } else {
+        console.log('演示模式：停止监听');
+      }
+      this.isListening = false;
+      UI.setVoiceStatus('idle');
+    } catch(e) {
+      console.error('停止监听失败:', e);
     }
-    this.isListening = false;
-    UI.setVoiceStatus('idle');
   },
 
   // 处理识别结果

@@ -12,10 +12,26 @@ const Detector = {
   // 初始化
   async init() {
     try {
-      // 检查opencv.js是否可用
-      if (typeof cv !== 'undefined' && cv.Mat) {
-        await this.loadTemplate();
-        console.log('会议检测器已就绪');
+      // 检查是否在Capacitor环境
+      if (typeof Capacitor !== 'undefined' && Capacitor.isNativePlatform()) {
+        const { ScreenCapturePlugin } = Capacitor.Plugins;
+        this.screenPlugin = ScreenCapturePlugin;
+
+        // 请求截图权限
+        try {
+          const permResult = await this.screenPlugin.requestPermission();
+          console.log('截图权限:', permResult);
+        } catch(e) {
+          console.log('截图权限请求失败（用户可能取消）:', e.message);
+        }
+
+        // 检查opencv.js是否可用
+        if (typeof cv !== 'undefined' && cv.Mat) {
+          await this.loadTemplate();
+          console.log('会议检测器已就绪');
+        } else {
+          console.log('OpenCV未加载，会议检测功能不可用');
+        }
       } else {
         console.log('浏览器环境：会议检测功能将在Android设备上可用');
         // 浏览器环境下使用手动触发
@@ -58,7 +74,7 @@ const Detector = {
     if (this.isRunning) return;
     this.isRunning = true;
 
-    if (typeof cv !== 'undefined' && cv.Mat && typeof window.ScreenCapturePlugin !== 'undefined') {
+    if (this.screenPlugin && typeof cv !== 'undefined' && cv.Mat) {
       this.intervalId = setInterval(() => {
         this.checkScreen();
       }, this.CHECK_INTERVAL);
@@ -80,8 +96,10 @@ const Detector = {
   // 截图并检测
   async checkScreen() {
     try {
+      if (!this.screenPlugin) return;
+
       // 调用原生截图插件
-      const result = await ScreenCapturePlugin.capture({
+      const result = await this.screenPlugin.capture({
         quality: 60  // 降低质量以提升速度
       });
 
