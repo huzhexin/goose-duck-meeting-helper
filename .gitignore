@@ -38,3 +38,6 @@ src/assets/vosk-model-*/
 # Temporary files
 tmp/
 temp/
+
+# Android Vosk model (65MB - too large for GitHub)
+android/app/src/main/assets/vosk-model-cn/

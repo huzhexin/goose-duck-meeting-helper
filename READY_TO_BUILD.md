@@ -15,12 +15,12 @@
 - ✅ 前后端集成（Capacitor）
 - ✅ 权限和依赖配置
 
-### 2. Vosk语音模型 ✅
-- ✅ 模型已下载（42MB）
-- ✅ 模型已解压（65MB）
-- ✅ 模型已放置在正确位置
+### 2. Vosk语音模型 ⚠️
+- ⚠️ **重要**: 模型文件（65MB）不包含在Git仓库中
+- ⚠️ **首次使用必须运行**: `./download_vosk_model.sh`
 - ✅ 位置：`android/app/src/main/assets/vosk-model-cn/`
-- ✅ 包含14个文件
+- ✅ 包含14个文件（总计65MB）
+- ℹ️ 原因：文件过大，不适合上传到GitHub
 
 ### 3. 文档 ✅
 - ✅ 10份完整文档
@@ -34,7 +34,16 @@
 
 ---
 
-## 🚀 开始构建（3步）
+## 🚀 开始构建（4步）
+
+### 步骤0：下载Vosk模型（首次必需）⚠️
+```bash
+cd /Users/huzhexin/Documents/ggd/goose-duck-meeting-helper
+./download_vosk_model.sh
+# 选择 1 (小型模型，40MB)
+```
+
+**注意**: 模型文件（65MB）因为太大，没有包含在Git仓库中。从GitHub克隆项目后必须先运行此脚本下载模型。
 
 ### 步骤1：同步代码到Android
 ```bash
